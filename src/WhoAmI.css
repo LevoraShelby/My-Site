@@ -1,9 +1,15 @@
 #root {
+	width: 100%;
+	background: black;
+}
+
+.whoami {
+	max-width: fit-content;
 	margin-inline: auto;
 }
 
 h1,h3,p {
-	color: black;
+	color: #33FF00;
 	font-family: ui-monospace;
 }
 
@@ -29,5 +35,6 @@ img {
 .caption {
 	color: #555;
 	font-size: 14px;
-	text-align: center
+	text-align: center;
+	max-width: 100%;
 }
