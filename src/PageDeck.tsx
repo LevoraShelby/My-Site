@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import App from './App.tsx'
+import Homepage from './Homepage.tsx'
 import WhoAmI from './WhoAmI.tsx'
 import './PageDeck.css'
 
@@ -23,7 +23,7 @@ function PageDeck() {
 	}
 	
 	return (<div onKeyUp={onKeyPress} tabIndex={0} className='pageDeck'>
-		{ position == 1 && <App/> }
+		{ position == 1 && <Homepage/> }
 		{ position == 2 && <WhoAmI/> }
 	</div>)
 }
