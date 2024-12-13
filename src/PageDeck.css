@@ -1,0 +1,4 @@
+.pageDeck:focus {
+	outline: none;
+	border: none;
+}
