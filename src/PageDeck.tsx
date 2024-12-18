@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Homepage from './Homepage.tsx'
 import WhoAmI from './WhoAmI.tsx'
 import KeybindingsModal from './KeybindingsModal.tsx'
 import './PageDeck.css'
+import {KeyBufferContext, SetKeyBufferContext} from './App.tsx'
 
 function PageDeck() {
-	const [position, setPosition] = useState(1)
-	// TODO: Move this into a Context when we start using more keybinds
+	const [page, setPage] = useState(1)
 	const [showKeybindingsModal, setShowKeybindingsModal] = useState(false)
-	const [keyBuffer, setKeyBuffer] = useState<string[]>([])
+	const keyBuffer = useContext(KeyBufferContext)
+	const setKeyBuffer = useContext(SetKeyBufferContext)
 
+	// TODO: It would be nice if key-pressing handling was abstracted away somehow
 	const onKeyPress = (event: React.KeyboardEvent<any>) => {
 		if (keyBuffer.length == 0 && event.key === "p") {
 			setKeyBuffer(["p"])
@@ -28,14 +30,13 @@ function PageDeck() {
 		}
 		if (event.key in ["0","1","2"]) {
 			setKeyBuffer([])
-			setPosition(parseInt(event.key,10))
+			setPage(parseInt(event.key,10))
 		}
 	}
 	
 	return (<div onKeyUp={onKeyPress} tabIndex={0} className='pageDeck'>
-		{ position == 1 && <Homepage/> }
-		{ position == 2 && <WhoAmI/> }
-		{ /*TODO: KeybindingsModal doesn't always toggle if it was toggled just a second ago*/ }
+		{ page == 1 && <Homepage/> }
+		{ page == 2 && <WhoAmI/> }
 		<KeybindingsModal isOpen={showKeybindingsModal} />
 	</div>)
 }
