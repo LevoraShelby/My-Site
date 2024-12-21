@@ -30,7 +30,7 @@ function PageDeck() {
 		if (keyBuffer.length == 0) {
 			return
 		}
-		if (event.key in ["0","1","2"]) {
+		if (event.key in ["0","1","2","3"]) {
 			setKeyBuffer([])
 			setPage(parseInt(event.key,10))
 		}
@@ -41,6 +41,7 @@ function PageDeck() {
 	return (<div className='pageDeck'>
 		{ page == 1 && <Homepage/> }
 		{ page == 2 && <WhoAmI/> }
+		{ page == 3 && <ShortStories/> }
 		<KeybindingsModal isOpen={showKeybindingsModal} />
 	</div>)
 }
