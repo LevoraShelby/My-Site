@@ -1,0 +1,9 @@
+.textPage {
+	width: fit-content;
+}
+
+.textPage p {
+	max-width: 66ch;	
+	font-family: "consolas";
+	color: rgb(15, 15, 15);
+}

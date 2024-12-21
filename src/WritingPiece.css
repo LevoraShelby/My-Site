@@ -1,0 +1,9 @@
+.writingPiece {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.writingPiece h2 {
+	text-align: center;
+}

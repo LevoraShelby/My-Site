@@ -2,6 +2,8 @@ import axios from "axios"
 import {ReactElement, useContext, useEffect, useRef, useState} from "react"
 import {KeyBufferContext} from "./App"
 import {KeyboardListener, replaceKeyBinder} from "./utils"
+import TextPage from "./TextPage"
+import "./WritingPiece.css"
 
 // TODO: Split into pages. Process page breaks
 function WritingPiece(props: {title: string, close: () => void}): ReactElement {
@@ -22,9 +24,9 @@ function WritingPiece(props: {title: string, close: () => void}): ReactElement {
 	}
 	replaceKeyBinder(onKeyPress, prevOnKeyPress)
 
-	return (<div>
+	return (<div className="writingPiece">
 			<h2>{props.title}</h2>
-			{text != undefined && text.split("\n").map( (paragraph, i) => <p key={i}>{paragraph}</p>)}
+			{text != undefined && <TextPage text={text}/>}
 			{text == undefined && !hasErrorOccured && <p>Loading...</p>}
 			{text == undefined && hasErrorOccured && <p>Error!</p>}
 		</div>)
