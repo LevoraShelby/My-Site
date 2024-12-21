@@ -3,14 +3,15 @@ import {ReactElement, useContext, useEffect, useRef, useState} from "react"
 import {KeyBufferContext} from "./App"
 import {KeyboardListener, replaceKeyBinder} from "./utils"
 
-function ShortStory(props: {title: string, close: () => void}): ReactElement {
+// TODO: Split into pages. Process page breaks
+function WritingPiece(props: {title: string, close: () => void}): ReactElement {
 	const [text, setText] = useState<string | undefined>(undefined)
 	const [hasErrorOccured, setHasErrorOccurred] = useState<boolean>(false)
 	const keyBuffer = useContext(KeyBufferContext)
 	const prevOnKeyPress = useRef<KeyboardListener|undefined>(undefined)
 
 	useEffect(()=>{
-		axios.get<string>("http://localhost:8080/short-stories/" + props.title)
+		axios.get<string>("http://localhost:8080/writings/" + props.title)
 			.then( resp => setText(resp.data) , _ => setHasErrorOccurred(true))
 	}, [])
 
@@ -19,7 +20,6 @@ function ShortStory(props: {title: string, close: () => void}): ReactElement {
 			props.close()
 		}
 	}
-
 	replaceKeyBinder(onKeyPress, prevOnKeyPress)
 
 	return (<div>
@@ -30,4 +30,4 @@ function ShortStory(props: {title: string, close: () => void}): ReactElement {
 		</div>)
 }
 
-export default ShortStory
+export default WritingPiece

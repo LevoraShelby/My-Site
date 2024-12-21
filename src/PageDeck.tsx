@@ -4,7 +4,7 @@ import WhoAmI from './WhoAmI.tsx'
 import KeybindingsModal from './KeybindingsModal.tsx'
 import './PageDeck.css'
 import {KeyBufferContext, SetKeyBufferContext} from './App.tsx'
-import ShortStories from './ShortStories.tsx'
+import Writings from './Writings.tsx'
 import {KeyboardListener, replaceKeyBinder} from './utils.ts'
 
 function PageDeck() {
@@ -41,7 +41,7 @@ function PageDeck() {
 	return (<div className='pageDeck'>
 		{ page == 1 && <Homepage/> }
 		{ page == 2 && <WhoAmI/> }
-		{ page == 3 && <ShortStories/> }
+		{ page == 3 && <Writings/> }
 		<KeybindingsModal isOpen={showKeybindingsModal} />
 	</div>)
 }

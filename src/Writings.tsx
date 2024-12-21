@@ -1,10 +1,10 @@
 import {ReactElement, useEffect, useState, useContext, useRef} from "react";
 import axios from "axios";
 import {KeyBufferContext} from "./App";
-import ShortStory from "./ShortStory";
+import WritingPiece from "./WritingPiece";
 import {KeyboardListener, replaceKeyBinder} from "./utils";
 
-function ShortStories(): ReactElement {
+function Writings(): ReactElement {
 	const [titles, setTitles] = useState<string[]>([])
 	const [selectedIndex, setSelectedIndex] = useState<number | undefined>(undefined)
 	const [isStoryOpen, setIsStoryOpen] = useState<boolean>(false)
@@ -12,7 +12,7 @@ function ShortStories(): ReactElement {
 	const prevOnKeyPress = useRef<KeyboardListener|undefined>(undefined)
 
 	useEffect(() => {
-		const apiTitlesReq = axios.get<string[]>("http://localhost:8080/short-stories/titles")
+		const apiTitlesReq = axios.get<string[]>("http://localhost:8080/writings/titles")
 		apiTitlesReq.then((res) => {
 			if (res.status == 200) {
 				setTitles(res.data)
@@ -45,9 +45,9 @@ function ShortStories(): ReactElement {
 				))
 			}
 			{isStoryOpen && selectedIndex != undefined &&
-				<ShortStory close={() => setIsStoryOpen(false)} title={titles[selectedIndex]}/>
+				<WritingPiece close={() => setIsStoryOpen(false)} title={titles[selectedIndex]}/>
 			}
 		</div>)
 }
 
-export default ShortStories
+export default Writings
