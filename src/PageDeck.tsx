@@ -1,18 +1,20 @@
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import Homepage from './Homepage.tsx'
 import WhoAmI from './WhoAmI.tsx'
 import KeybindingsModal from './KeybindingsModal.tsx'
 import './PageDeck.css'
 import {KeyBufferContext, SetKeyBufferContext} from './App.tsx'
+import ShortStories from './ShortStories.tsx'
+import {KeyboardListener, replaceKeyBinder} from './utils.ts'
 
 function PageDeck() {
-	const [page, setPage] = useState(1)
-	const [showKeybindingsModal, setShowKeybindingsModal] = useState(false)
+	const [page, setPage] = useState<number>(1)
+	const [showKeybindingsModal, setShowKeybindingsModal] = useState<boolean>(false)
 	const keyBuffer = useContext(KeyBufferContext)
 	const setKeyBuffer = useContext(SetKeyBufferContext)
+	const prevOnKeyPress = useRef<KeyboardListener|undefined>(undefined)
 
-	// TODO: It would be nice if key-pressing handling was abstracted away somehow
-	const onKeyPress = (event: React.KeyboardEvent<any>) => {
+	const onKeyPress = (event: KeyboardEvent) => {
 		if (keyBuffer.length == 0 && event.key === "p") {
 			setKeyBuffer(["p"])
 			return
@@ -33,8 +35,10 @@ function PageDeck() {
 			setPage(parseInt(event.key,10))
 		}
 	}
+	replaceKeyBinder(onKeyPress, prevOnKeyPress)
 	
-	return (<div onKeyUp={onKeyPress} tabIndex={0} className='pageDeck'>
+	// TODO: KeybindingsModal isn't opening for some reason. Needs to be fixed.
+	return (<div className='pageDeck'>
 		{ page == 1 && <Homepage/> }
 		{ page == 2 && <WhoAmI/> }
 		<KeybindingsModal isOpen={showKeybindingsModal} />

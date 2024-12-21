@@ -1,8 +1,3 @@
-.pageDeck:focus {
-	outline: none;
-	border: none;
-}
-
 .pageDeck {
 	width: 100%;
 	height: 100%;
