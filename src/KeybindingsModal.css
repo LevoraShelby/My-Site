@@ -8,6 +8,9 @@
 .keybindingsModal p {
 	font-size: 3em;
 }
+.keybindingsModal h1 {
+	font-size: 3em;
+}
 
 .keybindingKey {
 	width: 1em;
