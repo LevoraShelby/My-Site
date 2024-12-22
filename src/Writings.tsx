@@ -24,7 +24,7 @@ function Writings(): ReactElement {
 	}, [])
 
 	const onKeyPress = (event: KeyboardEvent): void => {
-		if (keyBuffer.length == 0 && ["j","k"].includes(event.key) && selectedIndex != undefined) {
+		if (keyBuffer.length == 0 && ["j","k"].includes(event.key) && selectedIndex != undefined && !isStoryOpen) {
 			if (event.key === "j") {
 				setSelectedIndex((selectedIndex) => (selectedIndex! + 1) % titles.length)
 			}
@@ -38,6 +38,7 @@ function Writings(): ReactElement {
 	}
 	replaceKeyBinder(onKeyPress, prevOnKeyPress)
 
+	// TODO: Create WritingMenu component and move keybinding logic there
 	return (<div> 
 			{!isStoryOpen &&
 				titles.map( (title, i) => (
