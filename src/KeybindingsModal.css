@@ -1,0 +1,19 @@
+.keybindingsModal {
+	display: "flex";
+	margin: 3em;
+	padding: 1em;
+	background: white;
+}
+
+.keybindingsModal p {
+	font-size: 3em;
+}
+
+.keybindingKey {
+	width: 1em;
+	height: auto;
+}
+
+.keybindingKey.shift {
+	width: 2.25em;
+}

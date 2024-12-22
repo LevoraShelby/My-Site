@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import Homepage from './Homepage.tsx'
 import WhoAmI from './WhoAmI.tsx'
 import KeybindingsModal from './KeybindingsModal.tsx'
@@ -15,16 +15,20 @@ function PageDeck() {
 	const prevOnKeyPress = useRef<KeyboardListener|undefined>(undefined)
 
 	const onKeyPress = (event: KeyboardEvent) => {
-		if (keyBuffer.length == 0 && event.key === "p") {
-			setKeyBuffer(["p"])
-			return
-		}
 		if (keyBuffer.length == 0 && event.key === "?") {
 			setShowKeybindingsModal((val) => !val)
 			return
 		}
 		if (keyBuffer.length == 0 && event.key === "Escape" && showKeybindingsModal) {
 			setShowKeybindingsModal(false)
+			return
+		}
+		// Prevents any other changes from happening while keybindings modal is up.
+		if (showKeybindingsModal) {
+			return
+		}
+		if (keyBuffer.length == 0 && event.key === "p") {
+			setKeyBuffer(["p"])
 			return
 		}
 		if (keyBuffer.length == 0) {
@@ -35,7 +39,10 @@ function PageDeck() {
 			setPage(parseInt(event.key,10))
 		}
 	}
-	replaceKeyBinder(onKeyPress, prevOnKeyPress)
+	// TODO: Look into why setShowKeybindingsModal doesn't work without this but setPage does.
+	useEffect(() => {
+		replaceKeyBinder(onKeyPress, prevOnKeyPress)
+	}, [keyBuffer, setKeyBuffer, showKeybindingsModal, setShowKeybindingsModal])
 	
 	// TODO: KeybindingsModal isn't opening for some reason. Needs to be fixed.
 	return (<div className='pageDeck'>
