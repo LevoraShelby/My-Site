@@ -2,7 +2,7 @@ import {createContext, ReactElement, useState} from "react";
 import PageDeck from "./PageDeck";
 
 const KeyBufferContext = createContext<string[]>([])
-const SetKeyBufferContext = createContext<(s: string[])=>void>((s)=>{})
+const SetKeyBufferContext = createContext<(s: string[])=>void>((_)=>{})
 
 function App(): ReactElement {
 	const [keyBuffer, setKeyBuffer] = useState<string[]>([])
